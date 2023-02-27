@@ -1,0 +1,42 @@
+{
+  "name": "avalanche-subql-starter",
+  "version": "0.0.1",
+  "description": "This project can be use as a starting point for developing your new Avalanche SubQuery project",
+  "main": "dist/index.js",
+  "scripts": {
+    "postinstall": "./scripts/fix-webpack-ethers",
+    "build": "subql build",
+    "codegen": "subql codegen && npm run codegen:contracts",
+    "start:docker": "docker-compose pull && docker-compose up -d --remove-orphans",
+    "dev": "subql codegen && subql build && docker-compose pull && docker-compose up -d --remove-orphans",
+    "prepack": "rm -rf dist && npm run build",
+    "test": "jest",
+    "codegen:contracts": "typechain --target=ethers-v5 --out-dir src/contracts abis/*.json"
+  },
+  "homepage": "https://github.com/subquery/avalanche-subql-starter",
+  "repository": "github:subquery/avalanche-subql-starter",
+  "files": [
+    "dist",
+    "schema.graphql",
+    "project.yaml"
+  ],
+  "author": "SubQuery Team",
+  "license": "MIT",
+  "dependencies": {
+    "@polkadot/api": "^9",
+    "@subql/common": "latest",
+    "@subql/validator": "latest",
+    "assert": "^2.0.0",
+    "ethers": "^5.6.9"
+  },
+  "devDependencies": {
+    "@subql/cli": "latest",
+    "@subql/types-avalanche": "latest",
+    "@typechain/ethers-v5": "^10.1.1",
+    "typechain": "^8.1.1",
+    "typescript": "4.5.5"
+  },
+  "exports":{
+    "index":"./src/mappings/index.ts"
+  }
+}
